@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+        <title>Reservations</title>
+        <link rel="stylesheet" href="../static/css/style.css">
+        <link rel="stylesheet" href="../static/css/topnav.css">
+        <link rel="stylesheet" href="../static/css/sidenav.css">
+        <link rel="stylesheet" href="../static/css/main_content.css">
+        <link rel="stylesheet" href="../static/css/pages_general.css">
+        <link rel="stylesheet" href="../static/css/footer.css">
+    </head>
+
+    <body>
+        <header>
+            <nav class="topnav">
+                <!-- <a href="pages/usr_profile.html"><img class="usr_img" src="images/usr_img.png" alt="profile image"></a> -->
+                <ul class="nav__links">
+                        <li>
+                            <div class="wrap">
+                                <div class="search">
+                                    <input type="text" class="searchTerm" placeholder="Search..">
+                                    <button type="submit" class="searchButton">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                        <div class="dropdown">
+                                <button class="dropbtn"><p>{{usr_name}}</p></button>
+                                <div class="dropdown-content">
+                                    <i class="small_font">{{ email }}</i><br>
+                                    <form action="{{ url_for('index') }}" method="post">
+                                        <button name="logout">Log out</button>
+                                    </form>
+                                </div>
+                        </div>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="main_content">
+            <div class="wrapper">
+                <aside class="sidenav">
+                    <a href="/"><img class="logo" src="../static/images/logo.png" alt="logo"</a>
+                    <h2>Main Menu</h2>
+                    <ul>
+                        <li><a href="/sales">Sales</a></li>
+                        <li><a href="/orders">Orders</a></li>
+                        <li><a href="/reservations">Reservations</a></li>
+                        <li><a href="/clients">Clients</a></li>
+                        <li><a href="/dishes">Dishes</a></li>
+                    </ul>
+                </aside>
+            </div>
+
+            <section class="main">
+                <h4 class="page-title">Orders</h4><hr>
+                <p class="small-font">Last 20 orders are displayed</p>
+                <p class="small-font">You have {{ data['orders_count'] }} order(s) in total</p>
+                {% if data['orders_count'] == 0 %}
+                    <p>Add at least one table to be able to add and view reservations.</p>
+                {% else %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>Reservation id</th>
+                                <th>Price</th>
+                                <th>Order time</th>
+                                <th>Payment time</th>
+                            </tr>
+                        </thead>
+                        {% for item in data['orders_table'] %}
+                            <tr>
+                                <td>{{ item[0] }}</td>
+                                <td>{{ item[1] }}</td>
+                                <td>{{ item[2] }}</td>
+                                <td>{{ item[3] }}</td>
+                                <td>{{ item[4] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+
+                <br><h5>Add an order:</h5><hr>
+                <form action="{{ url_for('orders') }}" method="post">
+                    <div class="inputs">
+                        <input type="name" name="reserv_id" placeholder="Reservation id" />
+                        <input type="name" name="price" placeholder="Price" required />
+                        <input type="name" name="ordr_time" placeholder="Order time" required />
+                        <input type="name" name="pmnt_time" placeholder="Payment time" required />
+                        <button class="grey-button" type="submit">Add</button>
+                    </div>
+                </form>
+
+                <br>
+                <h4 class="page-title">Order items</h4><hr>
+                <h5>Search for dishes in specific order:</h5>
+                <form action="{{ url_for('orders') }}" method="post">
+                    <div class="inputs">
+                        <input type="tbl" name="ord_id_ord_itm" placeholder="Order id" />
+                        <button class="grey-button" type="submit">Search</a>
+                    </div>
+                </form>
+                <div class="search_response">
+                    {% if 'ordr_item_get' in data%}
+                    <h5> Search results for {{ data['ord_id_ord_itm'] }}:</h5>
+                        {% if data['ordr_item_get'] == None or data['ordr_item_get']|length == 0 %}
+                            <p>There is no such order.</p>
+                        {% else %}
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Dish id</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            {% for item in data['ordr_item_get'] %}
+                                <tr>
+                                    <td>{{ item[0] }}</td>
+                                    <td>{{ item[1] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        {% endif %}
+                    {% endif %}
+                </div>
+
+                <h5>Add order item:</h5><hr>
+                <form action="{{ url_for('orders') }}" method="post">
+                    <div class="inputs">
+                        <input type="tbl" name="ord_id_ord_itm_add" placeholder="Order id" required />
+                        <input type="tbl" name="dish_id_ord_itm_add" placeholder="Dish id" required />
+                        <input type="tbl" name="amount_ord_itm_add" placeholder="Amount" required />
+                        <button class="grey-button" type="submit">Add</a>
+                    </div>
+                </form>
+            </section>
+        </div>
+
+        <footer class="footer">
+            <span>Copyright © 2019 <a href="https://github.com/olgapashneva" target="blank">Me</a>. 
+            All rights reserved.</span>
+        </footer>
+    </body>
+</html>

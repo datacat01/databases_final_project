@@ -1,0 +1,137 @@
+header{
+    display: block;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0rem 15%;
+}
+
+.topnav {
+    overflow: visible;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    box-shadow: 0 6px 2px -2px rgba(0,0,0,.2);
+    background: rgb(245, 243, 243);
+    z-index: 1;
+}
+
+.nav__links {
+    list-style: none;
+}
+
+.nav__links li{
+    display: inline-block;
+    margin: 0.1rem;
+    padding: 0.4rem 10rem;
+}
+
+.nav__links li a{
+    transition: all 0.3s ease 0s;
+}
+
+.nav__links li a:hover{
+    font-weight: 900;
+}
+
+/* drop-down menu */
+
+.dropbtn{
+    color: black;
+    border: 0.1rem solid gainsboro;
+
+    margin-left: 1.6rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+
+    padding: 0.3em 1.3em;
+
+    font-size: 1em;
+}
+
+.dropbtn:hover {
+    background-color: gainsboro;
+    font-weight: 900;
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+  
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 1rem;
+    box-shadow: 0px 0.2rem 0.8rem 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    text-align: left;
+    color: black;
+    text-decoration: none;
+    z-index: 2;
+}
+
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+  
+.dropdown:hover .dropdown-content {
+    display: block;
+    padding: 1rem;
+    color: #333333;
+    opacity: 0.95;
+}
+
+.usr_img {
+    width: 12%;
+    position: relative;
+    top: 0.6rem;
+    float: left;
+    left: 52%;
+}
+
+/* search */
+
+.search {
+    width: 100%;
+    position: relative;
+    display: flex;
+  }
+  
+  .searchTerm {
+    width: 100%;
+    border: 0.1rem solid rgb(16, 84, 129);
+    border-right: none;
+    padding: 0.2rem;
+    height: 2rem;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: black;
+  }
+  
+  .searchTerm:focus{
+    color: black;
+  }
+  
+  .searchButton {
+    width: 15%;
+    height: 2rem;
+    border: 0rem solid rgb(16, 84, 129);
+    background: rgb(16, 84, 129);
+    text-align: center;
+    color: #fff;
+    border-radius: 0 0.2rem 0.2rem 0;
+    cursor: pointer;
+    font-size: 0.8em;
+  }
+  
+  /*Resize the wrap to see the search bar change!*/
+  .wrap{
+    width: 30%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }

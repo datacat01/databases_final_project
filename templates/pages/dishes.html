@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+        <title>Dishes</title>
+        <link rel="stylesheet" href="../static/css/style.css">
+        <link rel="stylesheet" href="../static/css/topnav.css">
+        <link rel="stylesheet" href="../static/css/sidenav.css">
+        <link rel="stylesheet" href="../static/css/main_content.css">
+        <link rel="stylesheet" href="../static/css/pages_general.css">
+        <link rel="stylesheet" href="../static/css/footer.css">
+    </head>
+
+    <body>
+        <header>
+            <nav class="topnav">
+                <!-- <a href="pages/usr_profile.html"><img class="usr_img" src="images/usr_img.png" alt="profile image"></a> -->
+                <ul class="nav__links">
+                        <li>
+                            <div class="wrap">
+                                <div class="search">
+                                    <input type="text" class="searchTerm" placeholder="Search..">
+                                    <button type="submit" class="searchButton">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                        <div class="dropdown">
+                                <button class="dropbtn"><p>{{usr_name}}</p></button>
+                                <div class="dropdown-content">
+                                    <i class="small_font">{{ email }}</i><br>
+                                    <form action="{{ url_for('index') }}" method="post">
+                                        <button name="logout">Log out</button>
+                                    </form>
+                                </div>
+                        </div>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="main_content">
+            <div class="wrapper">
+                <aside class="sidenav">
+                    <a href="/"><img class="logo" src="../static/images/logo.png" alt="logo"</a>
+                    <h2>Main Menu</h2>
+                    <ul>
+                        <li><a href="/sales">Sales</a></li>
+                        <li><a href="/orders">Orders</a></li>
+                        <li><a href="/reservations">Reservations</a></li>
+                        <li><a href="/clients">Clients</a></li>
+                        <li><a href="/dishes">Dishes</a></li>
+                    </ul>
+                </aside>
+            </div>
+
+            <section class="main">
+                <h4 class="page-title">Dishes</h4>
+                <hr>
+
+                <h5>Search for a dish:</h5>
+                <form action="{{ url_for('dishes') }}" method="post">
+                    <div class="inputs">
+                        <input type="name" name="dish_name" placeholder="Name" required />
+                        <button class="grey-button" type="submit">Search</button>
+                    </div>
+                </form>
+                <div class="search_responce">
+                    {% if 'dish_info' in data%}
+                    <h5> Search results for {{ data['dish_name'] }}:</h5>
+                        {% if data['dish_info'] == None %}
+                            <p>There is no such dish in the table.</p>
+                        {% else %}
+                            <p> id: {{ data['dish_info'][0] }}</p>
+                            <p> price: {{ data['dish_info'][2] }}</p>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <hr>
+
+                <h5>Add a dish:</h5>
+                <form action="{{ url_for('dishes') }}" method="post">
+                    <div class="inputs">
+                        <input type="name" name="new_dish_name" placeholder="Name" required />
+                        <input type="price" name="new_dish_price" placeholder="Price" required />
+                        <button class="grey-button" type="submit">Add</button>
+                    </div>
+                </form>
+                <div class="search_responce">
+                    {% if 'dish_add' in data%}
+                    <h5> Add {{ data['dish_add'][0] }} to the table:</h5>
+                    <p>{{ data['dish_add'][1] }}</p>
+                    {% endif %}
+                </div>
+
+            </section>
+        </div>
+
+        <footer class="footer">
+            <span>Copyright © 2019 <a href="https://github.com/olgapashneva" target="blank">Me</a>. 
+            All rights reserved.</span>
+        </footer>
+    </body>
+</html>

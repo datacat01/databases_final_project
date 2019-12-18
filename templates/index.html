@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+        <title>Dashboard</title>
+        <link rel="stylesheet" href="../static/css/style.css">
+        <link rel="stylesheet" href="../static/css/topnav.css">
+        <link rel="stylesheet" href="../static/css/sidenav.css">
+        <link rel="stylesheet" href="../static/css/main_content.css">
+        <link rel="stylesheet" href="../static/css/footer.css">
+    </head>
+
+    <body>
+        <header>
+            <nav class="topnav">
+                <!-- <a href="pages/usr_profile.html"><img class="usr_img" src="images/usr_img.png" alt="profile image"></a> -->
+                <ul class="nav__links">
+                        <li>
+                            <div class="wrap">
+                                <div class="search">
+                                    <input type="text" class="searchTerm" placeholder="Search..">
+                                    <button type="submit" class="searchButton">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                        <div class="dropdown">
+                                <button class="dropbtn"><p>{{usr_name}}</p></button>
+                                <!-- <img class="usr_img" src="../static/images/usr_img.png" alt="profile image"> -->
+                                <div class="dropdown-content">
+                                    <i class="small_font">{{ email }}</i><br>
+                                    <form action="{{ url_for('index') }}" method="post">
+                                        <button name="logout">Log out</button>
+                                    </form>
+                                </div>
+                                <!-- <button class="dropbtn"><a href="pages/sign_in.html">Login</a></button>
+                                <button class="dropbtn"><a href="pages/sign_up.html">Register</a></button> -->
+                        </div>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="main_content">
+            <div class="wrapper">
+                <aside class="sidenav">
+                    <a href="#"><img class="logo" src="../static/images/logo.png" alt="logo"</a>
+                    <h2>Main Menu</h2>
+                    <ul>
+                        <li><a href="/sales">Sales</a></li>
+                        <li><a href="/orders">Orders</a></li>
+                        <li><a href="/reservations">Reservations</a></li>
+                        <li><a href="/clients">Clients</a></li>
+                        <li><a href="/dishes">Dishes</a></li>
+                    </ul>
+                </aside>
+            </div>
+
+            <section class="dashboard">
+                <h4 class="page-title">Dashboard</h4>
+                <h5 class="small-font">Statistics up to <time>{{ data['stats_time'] }}</time></h5>
+                <!-- <button class="minor-button">Refresh</button> -->
+                <hr>
+                <div class="card-wrapper-1">
+                    <div class="card">
+                        <div class="container">
+                            <h4>Sales Statistics Overview</h4>
+                        </div>
+                        <img class="card-img" src={{ data["path_sales_stats"] }}>
+                        <p class="important_text">Total revenue: {{ data['total_revenue'] }}</p>
+                    </div>
+                </div>
+                <div class="card-wrapper-2">
+                    <div class="card">
+                        <div class="container">
+                            <h4>Orders per day</h4>
+                        </div>
+                        <img class="card-img" src={{ data["path_orders_per_day"] }}>
+                    </div>
+                    <div class="card">
+                        <div class="container">
+                            <h4>Average time spent in restaurant</h4>
+                        </div>
+                        <img class="card-img" src={{ data["path_av_time"] }}>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="footer">
+            <span>Copyright © 2019 <a href="https://github.com/olgapashneva" target="blank">Me</a>. 
+            All rights reserved.</span>
+        </footer>
+    </body>
+</html>

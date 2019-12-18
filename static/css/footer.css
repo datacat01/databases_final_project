@@ -1,0 +1,36 @@
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #dbdbdb;
+    padding: 1.6rem 1rem;
+    margin-left: 15%;
+    transition: all 0.25s ease;
+    border-top: 1px solid #cdd6dc;
+    font-size: calc(0.875rem - 0.05rem);
+    z-index: 1;
+}
+
+.footer a {
+    font-size: inherit;
+}
+
+
+
+.footer_full {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #dbdbdb;
+    padding: 1.6rem 1rem;
+    transition: all 0.25s ease;
+    border-top: 1px solid #cdd6dc;
+    font-size: calc(0.875rem - 0.05rem);
+    z-index: 1;
+}
+
+.footer_full a {
+    font-size: inherit;
+}
