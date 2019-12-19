@@ -17,14 +17,14 @@ class Access_db:
         with open('db_login_info.json') as json_file:
             data = json.load(json_file)
             try:
-                return [data[self._adm_name]['password'], data[self._adm_name]['host']]
+                return [data[self._adm_name]['password'], data[self._adm_name]['host'], data[self._adm_name]['schema']]
             except KeyError:
                 print(f'No {self._adm_name} user')
                 return None
     
     def connect_to_db(self):
-        host, password = self.__get_credent()
-        self.db = pymysql.connect(host, self._adm_name, self.__get_credent(), 'rms_site')
+        host, password, schema = self.__get_credent()
+        self.db = pymysql.connect(host, self._adm_name, self.__get_credent(), schema)
 
         if self.db is None:
             print("Can't connect to db")
