@@ -2,5 +2,6 @@ flask
 pymysql
 werkzeug
 regex
-seaborn
+matplotlib
+pandas
 datetime
