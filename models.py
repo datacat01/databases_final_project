@@ -24,7 +24,8 @@ class Access_db:
     
     def connect_to_db(self):
         host, password, schema = self.__get_credent()
-        self.db = pymysql.connect(host=host, user=self._adm_name, password=password, db=schema)
+        # self.db = pymysql.connect(host=host, user=self._adm_name, password=password, db=schema)
+        pymysql.connect(host='49c0e5ae@us-cdbr-iron-east-05.cleardb.net', user='b6c63018cf3194', password='49c0e5ae', db='heroku_3ab547fc5c217f6')
 
         if self.db is None:
             print("Can't connect to db")
