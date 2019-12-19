@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import json
 
 class Access_db:
-    def __init__(self, adm_name='website_usr'):
+    def __init__(self, adm_name='b6c63018cf3194'):
         self._adm_name = adm_name
         self.connect_to_db()
     
@@ -24,7 +24,7 @@ class Access_db:
     
     def connect_to_db(self):
         host, password, schema = self.__get_credent()
-        self.db = pymysql.connect(host, self._adm_name, self.__get_credent(), schema)
+        self.db = pymysql.connect(host=host, user=self._adm_name, password=password, db=schema)
 
         if self.db is None:
             print("Can't connect to db")
