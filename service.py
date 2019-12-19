@@ -270,7 +270,10 @@ class Sales(Access_db):
         return self.size[0][0]
     
     def get_income(self):
-        sql="select rms_site.income_total('%s');"%(self._usr_id)
+        # sql="select rms_site.income_total('%s');"%(self._usr_id)
+        sql = """SELECT SUM(price)
+                FROM `order`
+                WHERE `order`.usr_id = '%s';"""%(self._usr_id)
         self.cursor.execute(sql)
         income = self.cursor.fetchall()
         return income[0][0]

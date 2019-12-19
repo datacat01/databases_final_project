@@ -23,9 +23,8 @@ class Access_db:
                 return None
     
     def connect_to_db(self):
-        host, password, schema = self.__get_credent()
-        # self.db = pymysql.connect(host=host, user=self._adm_name, password=password, db=schema)
-        pymysql.connect(host='49c0e5ae@us-cdbr-iron-east-05.cleardb.net', user='b6c63018cf3194', password='49c0e5ae', db='heroku_3ab547fc5c217f6')
+        password, host, schema = self.__get_credent()
+        self.db = pymysql.connect(host=host, user=self._adm_name, password=password, db=schema)
 
         if self.db is None:
             print("Can't connect to db")
@@ -78,6 +77,6 @@ class User(Access_db):
 
 if __name__ == "__main__":
     u = User()
-    u.add_usr('test_email@gmail.com', 'John L', 'RKDC', 'qwerty123')
-    print(u.validate_password('dfgd', 'qdfr'))
-    print(u.get_usr_id('test_email@gmail.com'))
+    # u.add_usr('test_email@gmail.com', 'John L', 'RKDC', 'qwerty123')
+    # print(u.validate_password('dfgd', 'qdfr'))
+    # print(u.get_usr_id('test_email@gmail.com'))
