@@ -5,3 +5,4 @@ regex
 matplotlib
 pandas
 datetime
+gunicorn
