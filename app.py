@@ -4,7 +4,7 @@ from datetime import datetime
 from models import User
 from service import Dishes, Clients, Tables, Reservations, Orders, Order_Item, Sales
 from graphs import GenerateGraphs
-from checks import is_number, is_phone_num
+from checks import is_number
 
 app = Flask(__name__, static_url_path='/static')
 app.secret_key = 'DM8vT6VetDLyCZVL'
@@ -123,7 +123,7 @@ def orders():
         data['ordr_item_get'] = ordr_item.get_items_for_order(request.form['ord_id_ord_itm'])
     
     if 'ord_id_ord_itm_add' in request.form and 'dish_id_ord_itm_add' in request.form and 'amount_ord_itm_add' in request.form:
-        ordr_item.add_order_item(request['ord_id_ord_itm_add'], request['ord_id_ord_itm_add'], request['amount_ord_itm_add'])
+        ordr_item.add_order_item(request.form['ord_id_ord_itm_add'], request.form['ord_id_ord_itm_add'], request.form['amount_ord_itm_add'])
     
     if (request.method == 'POST' and 'price' in request.form
             and 'ordr_time' in request.form and 'pmnt_time' in request.form):
@@ -190,11 +190,8 @@ def clients():
         cli_id = is_number(request.form['cli_id'])
         requested_data['client_info'] = cl.get_client_info(cli_id)
     if request.method == 'POST' and 'new_client_name' in request.form and 'new_client_phone' in request.form:
-        if is_phone_num(request.form['new_client_phone']) is True:
-            cl.add_client(request.form['new_client_name'], request.form['new_client_phone'])
-            requested_data['client_add'] = (request.form['new_client_name'], 'Success')
-        else:
-            requested_data['client_add'] = (request.form['new_client_name'], 'Invalid phone num')
+        cl.add_client(request.form['new_client_name'], request.form['new_client_phone'])
+        requested_data['client_add'] = (request.form['new_client_name'], 'Success')
     return render_template(
         'pages/clients.html',
         usr_name=session['username'],

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
-        <title>Reservations</title>
+        <title>Orders</title>
         <link rel="stylesheet" href="../static/css/style.css">
         <link rel="stylesheet" href="../static/css/topnav.css">
         <link rel="stylesheet" href="../static/css/sidenav.css">
@@ -61,7 +61,7 @@
                 <p class="small-font">Last 20 orders are displayed</p>
                 <p class="small-font">You have {{ data['orders_count'] }} order(s) in total</p>
                 {% if data['orders_count'] == 0 %}
-                    <p>Add at least one table to be able to add and view reservations.</p>
+                    <p>Add at least one table to be able to add and view orders.</p>
                 {% else %}
                     <table>
                         <thead>

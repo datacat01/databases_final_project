@@ -2,6 +2,7 @@
     "ka7614": {
              "host": "77.47.192.87",
              "schema": "ka7614",
-             "password": "mocqaj-Bicty9-gikhor"
+             "password": "mocqaj-Bicty9-gikhor",
+             "port": "33321"
             }
 }

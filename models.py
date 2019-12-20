@@ -17,14 +17,14 @@ class Access_db:
         with open('db_login_info.json') as json_file:
             data = json.load(json_file)
             try:
-                return [data[self._adm_name]['password'], data[self._adm_name]['host'], data[self._adm_name]['schema']]
+                return [data[self._adm_name]['password'], data[self._adm_name]['host'], data[self._adm_name]['schema'], data[self._adm_name]['port']]
             except KeyError:
                 print(f'No {self._adm_name} user')
                 return None
     
     def connect_to_db(self):
-        password, host, schema = self.__get_credent()
-        self.db = pymysql.connect(host=host, user=self._adm_name, password=password, db=schema)
+        password, host, schema, port = self.__get_credent()
+        self.db = pymysql.connect(host=host, user=self._adm_name, password=password, db=schema, port=int(port))
 
         if self.db is None:
             print("Can't connect to db")
@@ -53,7 +53,7 @@ class User(Access_db):
     def add_usr(self, email, name, org_name, password):
         password_hash = generate_password_hash(password)
         sql = """
-            CALL `rms_site`.`add_user`('%s', '%s', '%s', '%s');
+            CALL `ka7614`.`add_user`('%s', '%s', '%s', '%s');
             """%(email, name, org_name, password_hash)
         self.cursor.execute(sql)
         self.db.commit()

@@ -26,7 +26,7 @@ class Dishes(Access_db):
         return self.usr_table
     
     def add_dish(self, dish_name, cost):
-        sql = """CALL `rms_site`.`add_dish`
+        sql = """CALL `ka7614`.`add_dish`
                  ('%s', '%s', '%s');"""%(self._usr_id, dish_name, cost)
         self.cursor.execute(sql)
         self.db.commit()
@@ -68,7 +68,7 @@ class Clients(Access_db):
         return info
     
     def add_client(self, client_name, phone):
-        sql = """CALL `rms_site`.`add_client_in`
+        sql = """CALL `ka7614`.`add_client_in`
                  ('%s', '%s', '%s');"""%(self._usr_id, client_name, phone)
         self.cursor.execute(sql)
         self.db.commit()
@@ -93,7 +93,7 @@ class Reservations(Access_db):
             pass
 
     def get_table(self):
-        sql = "SELECT `id`, `table_id`, `client_id`, `time_from`, `time_to`, `cli_arrived` FROM `reservation` WHERE `usr_id`='%s' ORDER BY `time_from` DESC;"%(self._usr_id)
+        sql = "SELECT `id`, `table_id`, `client_id`, `time_from`, `time_to` FROM `reservation` WHERE `usr_id`='%s' ORDER BY `time_from` DESC;"%(self._usr_id)
         self.cursor.execute(sql)
         self.usr_table = self.cursor.fetchall()
         return self.usr_table
@@ -106,7 +106,7 @@ class Reservations(Access_db):
     
     def add_reservation(self, client_name, client_phone, pers_count, time_from, time_to):
         try:
-            sql = """CALL `rms_site`.`create_reservation`
+            sql = """CALL `ka7614`.`create_reservation`
                     ('%s', '%s', '%s', '%s', '%s', '%s');"""%(self._usr_id, client_name, client_phone, pers_count, time_from, time_to)
             self.cursor.execute(sql)
             self.db.commit()
@@ -114,9 +114,9 @@ class Reservations(Access_db):
             return 'Smth went wrong'
 
     def rm_reservation(self, r_id):
-        # sql = """CALL `rms_site`.`rm_reservation`
+        # sql = """CALL `ka7614`.`rm_reservation`
         #          ('%s', '%s', '%s', '%s', '%s', '%s');"""%(self._usr_id, client_name, client_phone, pers_count, time_from, time_to)
-        sql= "CALL `rms_site`.`delete_reservation`('%s', '%s')"%(self._usr_id, r_id)
+        sql= "CALL `ka7614`.`delete_reservation`('%s', '%s')"%(self._usr_id, r_id)
         self.cursor.execute(sql)
         self.db.commit()
 
@@ -164,7 +164,7 @@ class Tables(Access_db):
     
     def rm_table(self, tbl_id):
         if is_number(tbl_id) is not False:
-            sql = """CALL `rms_site`.`rm_tbl`
+            sql = """CALL `ka7614`.`rm_tbl`
                  ('%s', '%s');"""%(self._usr_id, tbl_id)
             self.cursor.execute(sql)
             self.db.commit()
@@ -199,10 +199,10 @@ class Orders(Access_db):
     def add_order(self, reservation_id, price, order_time, payment_time):
         try:
             if reservation_id is not None:
-                sql = """CALL `rms_site`.`add_order`
+                sql = """CALL `ka7614`.`add_order`
                         ('%s', '%s', '%s', '%s', '%s');"""%(self._usr_id, reservation_id, price, order_time, payment_time)
             else:
-                sql = """CALL `rms_site`.`add_order_not_reserved`
+                sql = """CALL `ka7614`.`add_order_not_reserved`
                         ('%s', '%s', '%s', '%s');"""%(self._usr_id, price, order_time, payment_time)
             self.cursor.execute(sql)
             self.db.commit()
@@ -222,14 +222,15 @@ class Order_Item(Access_db):
             pass
 
     def get_items_for_order(self, order_id):
-        sql = "SELECT `dish_id`, `amount` FROM `order_item` WHERE (`usr_id`='%s' AND `order_id`='%s');"%(self._usr_id, order_id)
+        sql = """CALL `ka7614`.`get_ord_itm_dish_name`
+                    ('%s', '%s');"""%(self._usr_id, order_id)
         self.cursor.execute(sql)
         self.usr_table = self.cursor.fetchall()
         return self.usr_table
     
     def add_order_item(self, order_id, dish_id, amount):
         try:
-            sql = """CALL `rms_site`.`add_order_item`
+            sql = """CALL `ka7614`.`add_order_item`
                     ('%s', '%s', '%s', '%s');"""%(self._usr_id, order_id, dish_id, amount)
             self.cursor.execute(sql)
             self.db.commit()
@@ -238,7 +239,7 @@ class Order_Item(Access_db):
     
     def rm_order_item(self, order_id, dish_id):
         try:
-            sql = """CALL `rms_site`.`remove_order_item`
+            sql = """CALL `ka7614`.`remove_order_item`
                     ('%s', '%s', '%s');"""%(self._usr_id, order_id, dish_id)
             self.cursor.execute(sql)
             self.db.commit()
@@ -286,10 +287,10 @@ if __name__ == "__main__":
     # test.add_order(11, 56, '2019-12-13 09:04', '2019-12-13 10:16')
     # print(test.get_table_size())
 
-    # test1= Order_Item(1)
+    test1= Order_Item(1)
     # test1.add_order_item(1, 2, 1)
-    # print(test1.get_items_for_order(1))
+    print(test1.get_items_for_order(1))
     # print(test.get_table_size())
 
-    test2 = Sales(1)
-    print(test2.get_income())
+    # test2 = Sales(1)
+    # print(test2.get_income())
