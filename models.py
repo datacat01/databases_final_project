@@ -3,7 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import json
 
 class Access_db:
-    def __init__(self, adm_name='b6c63018cf3194'):
+    def __init__(self, adm_name='ka7614'):
         self._adm_name = adm_name
         self.connect_to_db()
     
